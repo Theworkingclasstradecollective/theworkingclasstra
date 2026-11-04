@@ -1,0 +1,7 @@
+drawdown,left_of_1000,gain_needed_to_get_even,action
+5%,$950,5.26%,Normal.
+10%,$900,11.11%,Cut risk per trade by 25%.
+20%,$800,25.00%,Cut risk by 50%. Audit the system.
+30%,$700,42.86%,Stop real trading. Re-test in demo.
+50%,$500,100.00%,Critical. You must double the account.
+75%,$250,300.00%,Effectively finished.

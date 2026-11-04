@@ -1,0 +1,16 @@
+{
+  "name": "anti-guru-field-manuals",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static catalog site for The Anti-Guru Field Manuals (Hugo + Tailwind CSS v4)",
+  "license": "CC-BY-SA-4.0",
+  "scripts": {
+    "dev": "hugo server --disableFastRender --navigateToChanged",
+    "build": "hugo --gc --minify --environment production"
+  },
+  "devDependencies": {
+    "@fontsource/archivo-black": "^5.2.5",
+    "@tailwindcss/cli": "^4.1.0",
+    "tailwindcss": "^4.1.0"
+  }
+}

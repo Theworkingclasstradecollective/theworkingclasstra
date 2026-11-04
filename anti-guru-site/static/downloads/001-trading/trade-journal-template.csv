@@ -1,0 +1,2 @@
+trade_no,date,session,instrument,direction,daily_bias,target_pile,zone_1h,key_level,alignment_score_0_3,sweep_level,sweep_extreme,force_body_ratio,gap_from,gap_to,gap_middle,limit_price,entry,stop,target,stop_distance,planned_r,balance,risk_pct,size,exit_price,exit_reason,costs_usd,realized_r,efficiency,bias_before_entry_yn,four_gates_in_order_yn,size_from_formula_yn,stop_live_never_widened_yn,planned_r_at_least_1_5_yn,calm_score_1_5,compliance_pass_fail,what_would_i_do_differently
+1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

@@ -1,0 +1,54 @@
+{{ define "main" }}
+<section class="mx-auto max-w-6xl px-4 py-12 md:py-16">
+  <p class="tag tag-brand">Free &middot; {{ site.Params.license }}</p>
+  <h1 class="mt-5 text-[clamp(2.4rem,7vw,4.8rem)]">{{ .Title }}</h1>
+  <div class="prose-plain mt-6">{{ .Content }}</div>
+
+  {{ with site.Params.githubRepo }}{{ if not (strings.Contains . "CHANGE-ME") }}
+  <p class="mt-6"><a class="btn btn-ghost" href="{{ . }}" rel="noopener noreferrer">Public data repo on GitHub <span aria-hidden="true">&rarr;</span></a></p>
+  {{ end }}{{ end }}
+
+  {{ range (where site.RegularPages "Section" "manuals").ByWeight }}
+    {{ $book := . }}
+    {{ $items := where site.Data.resources "book" $book.Params.number }}
+    {{ with $items }}
+    <section id="book-{{ $book.Params.number }}" class="mt-16 scroll-mt-6" aria-labelledby="h-{{ $book.Params.number }}">
+      <div class="flex flex-wrap items-center gap-3 border-b-4 border-ink pb-3">
+        <span class="tag tag-outline">#{{ $book.Params.number }}</span>
+        <h2 id="h-{{ $book.Params.number }}" class="text-2xl sm:text-3xl"><a class="no-underline hover:text-accent" href="{{ $book.RelPermalink }}">{{ $book.Title }}</a></h2>
+        {{ partial "status-badge.html" $book }}
+      </div>
+
+      <div class="overflow-x-auto" tabindex="0" role="region" aria-label="Downloads for {{ $book.Title }}">
+        <table class="data-table min-w-[44rem]">
+          <thead>
+            <tr><th scope="col">File</th><th scope="col">Type</th><th scope="col">Size</th><th scope="col">What it is</th><th scope="col"><span class="sr-only">Download</span></th></tr>
+          </thead>
+          <tbody>
+            {{ range . }}
+            <tr>
+              <td><span class="font-semibold">{{ .name }}</span><br><span class="mono text-xs text-muted">{{ path.Base .path }}</span></td>
+              <td><span class="tag">{{ .type }}</span></td>
+              <td class="mono whitespace-nowrap text-muted">
+                {{ with os.Stat (printf "static%s" .path) }}{{ if lt .Size 1024 }}{{ .Size }}&nbsp;B{{ else if lt .Size 1048576 }}{{ printf "%.0f" (div (float .Size) 1024) }}&nbsp;KB{{ else }}{{ printf "%.1f" (div (float .Size) 1048576) }}&nbsp;MB{{ end }}{{ end }}
+              </td>
+              <td class="max-w-md">{{ .desc }}</td>
+              <td class="whitespace-nowrap"><a class="btn btn-ghost !px-3 !py-2" href="{{ partial "u.html" .path }}" download>Download</a></td>
+            </tr>
+            {{ end }}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    {{ end }}
+  {{ end }}
+
+  <aside class="panel mt-16 p-5 sm:p-6" aria-label="How to use the scripts">
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted">Run the scripts</p>
+    <pre class="mt-3 overflow-x-auto font-mono text-sm leading-relaxed">$ python3 trade_stats.py trade-log-50.csv
+$ python3 risk_calc.py drawdown --peak 1000 --now 800
+$ python3 workout_volume.py spike --last4 300 320 310 330 --planned 316.5</pre>
+    <p class="mt-4 text-sm text-muted">Python 3 standard library only. No installs, no accounts, no network calls. Read the source before you run it; it is short on purpose.</p>
+  </aside>
+</section>
+{{ end }}

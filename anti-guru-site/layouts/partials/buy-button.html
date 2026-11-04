@@ -1,0 +1,10 @@
+{{- /* Amazon button. If the link is empty or "#", show a disabled state instead of a dead link. */ -}}
+{{- $url := .Params.amazon -}}
+{{- if and $url (ne $url "#") -}}
+  <a class="btn btn-primary" href="{{ $url }}" rel="noopener noreferrer" target="_blank">Buy on Amazon <span aria-hidden="true">&rarr;</span></a>
+{{- else -}}
+  <span class="btn btn-disabled" role="link" aria-disabled="true">
+    Amazon link live {{ with .Params.release_date }}{{ . | time.AsTime | time.Format "2 Jan" }}{{ else }}at launch{{ end }}
+  </span>
+  <a class="btn btn-ghost" href="{{ partial "u.html" "" }}#newsletter">Get the alert <span aria-hidden="true">&rarr;</span></a>
+{{- end -}}

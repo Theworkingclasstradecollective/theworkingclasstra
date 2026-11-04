@@ -1,0 +1,72 @@
+# ---------------------------------------------------------------
+# The Anti-Guru Field Manuals - Hugo configuration
+# Requires Hugo >= 0.128 (css.TailwindCSS). Tested on 0.139 extended.
+# ---------------------------------------------------------------
+baseURL = "https://antiguru.example/"   # <- CHANGE to your real domain
+title = "The Anti-Guru Field Manuals"
+languageCode = "en-us"
+defaultContentLanguage = "en"
+enableRobotsTXT = true
+enableGitInfo = false
+pluralizeListTitles = false
+
+# No tag/category pages: this is a catalog, not a blog.
+disableKinds = ["taxonomy", "term"]
+
+# Home gets an RSS feed (a zero-tracking alternative to the newsletter).
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML"]
+  page = ["HTML"]
+
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = false          # no raw HTML in markdown
+  [markup.highlight]
+    noClasses = false
+    style = "dracula"
+
+[minify]
+  disableXML = false
+  [minify.tdewolff.html]
+    keepWhitespace = false
+
+# Tailwind v4 CLI is invoked by Hugo; no extra Hugo mounts needed because the
+# stylesheet scans /layouts and /content directly (see assets/css/main.css).
+
+[params]
+  description = "Plain-language, 80-page-style operational field manuals for people with a day job, a rent to pay and no time for hype. No gurus. No signals. No BS."
+  author = "The Working-Class Trade Collective"
+  tagline = "No gurus. No subscriptions. Just the math."
+  license = "CC BY-SA 4.0"
+  licenseURL = "https://creativecommons.org/licenses/by-sa/4.0/"
+  ogImage = "/assets/brand/og-default.jpg"
+  logo = "/assets/brand/logo-192.webp"
+
+  # --- Newsletter (the only form on the site; plain HTML POST, no JS) ---
+  # Point this at any provider that offers a hosted form endpoint
+  # (Buttondown, Mailchimp, Kit, a self-hosted listmonk...). Turn OFF
+  # open/click tracking in the provider so the "zero tracking" claim stays true.
+  newsletterAction = "https://buttondown.com/api/emails/embed-subscribe/CHANGE-ME"
+  newsletterField = "email"
+
+  # --- Public data repo (shown on /resources/ once you replace CHANGE-ME) ---
+  githubRepo = "https://github.com/CHANGE-ME/anti-guru-data"
+
+[menus]
+  [[menus.main]]
+    name = "Manuals"
+    pageRef = "/manuals"
+    weight = 10
+  [[menus.main]]
+    name = "Resources"
+    pageRef = "/resources"
+    weight = 20
+  [[menus.main]]
+    name = "Manifesto"
+    pageRef = "/manifesto"
+    weight = 30

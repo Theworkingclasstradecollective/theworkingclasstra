@@ -1,0 +1,51 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+{{- $title := site.Title -}}
+{{- if .IsHome -}}
+  {{- $title = printf "%s | %s" site.Title site.Params.tagline -}}
+{{- else if and .IsPage (eq .Section "manuals") .Params.subtitle -}}
+  {{- $title = printf "%s: %s | %s" .Title .Params.subtitle site.Title -}}
+{{- else -}}
+  {{- $title = printf "%s | %s" .Title site.Title -}}
+{{- end -}}
+{{- $desc := or .Description .Params.description (cond .IsPage (.Summary | plainify | truncate 160) "") site.Params.description -}}
+{{- $img := site.Params.ogImage -}}
+{{- with .Params.cover }}{{ $img = . }}{{ end -}}
+
+<title>{{ $title }}</title>
+<meta name="description" content="{{ $desc }}">
+<link rel="canonical" href="{{ .Permalink }}">
+
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:type" content="{{ cond (and .IsPage (eq .Section "manuals")) "book" "website" }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:image" content="{{ partial "au.html" $img }}">
+<meta name="twitter:card" content="{{ cond (and .IsPage (eq .Section "manuals")) "summary" "summary_large_image" }}">
+
+<link rel="icon" type="image/png" sizes="64x64" href="{{ "assets/brand/favicon-64.png" | relURL }}">
+<link rel="apple-touch-icon" href="{{ "assets/brand/apple-touch-icon.png" | relURL }}">
+{{ with site.Home.OutputFormats.Get "RSS" }}
+<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .RelPermalink }}">
+{{ end }}
+
+<link rel="preload" href="{{ "fonts/archivo-black-latin-400-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+
+{{- with resources.Get "css/main.css" -}}
+  {{- $opts := dict "minify" hugo.IsProduction -}}
+  {{- with . | css.TailwindCSS $opts -}}
+    {{- if hugo.IsProduction -}}{{- with . | fingerprint -}}
+  <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+    {{- end -}}{{- else -}}
+  <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{- end -}}
+  {{- end -}}
+{{- end }}
+
+{{ if and .IsPage (eq .Section "manuals") }}{{ partial "schema-book.html" . }}{{ end }}

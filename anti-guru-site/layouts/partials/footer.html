@@ -1,0 +1,44 @@
+<footer class="mt-24 border-t-4 border-ink">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-12">
+    <div class="md:col-span-5">
+      <div class="flex items-center gap-3">
+        <img src="{{ partial "u.html" site.Params.logo }}" width="64" height="64" alt="" loading="lazy" class="size-16 rounded-full">
+        <p class="font-display text-xl uppercase leading-none">
+          The Working-Class<br>Trade Collective
+        </p>
+      </div>
+      <p class="mt-5 max-w-sm text-sm text-muted">
+        Free culture. Every manual is licensed
+        <a class="text-accent underline" href="{{ site.Params.licenseURL }}" rel="license noopener">{{ site.Params.license }}</a>:
+        copy it, pass it on, translate it, with credit and the same licence.
+      </p>
+    </div>
+
+    <nav class="md:col-span-3" aria-label="Footer">
+      <p class="font-mono text-xs uppercase tracking-[0.22em] text-muted">Map</p>
+      <ul class="mt-3 space-y-2 font-mono text-sm uppercase tracking-widest">
+        <li><a class="hover:text-accent" href="{{ "manuals/" | relURL }}">Manuals</a></li>
+        <li><a class="hover:text-accent" href="{{ "resources/" | relURL }}">Open resources</a></li>
+        <li><a class="hover:text-accent" href="{{ "manifesto/" | relURL }}">Manifesto</a></li>
+        {{ with site.Home.OutputFormats.Get "RSS" }}<li><a class="hover:text-accent" href="{{ .RelPermalink }}">RSS</a></li>{{ end }}
+      </ul>
+    </nav>
+
+    <div class="md:col-span-4">
+      <p class="font-mono text-xs uppercase tracking-[0.22em] text-muted">Site spec</p>
+      <pre class="mt-3 overflow-x-auto border-2 border-ink bg-panel p-3 font-mono text-xs leading-relaxed">cookies ........ 0
+trackers ....... 0
+analytics ...... 0
+JavaScript ..... 0 bytes
+logins ......... none</pre>
+    </div>
+  </div>
+
+  <div class="border-t-2 border-line">
+    <p class="mx-auto max-w-6xl px-4 py-5 text-xs leading-relaxed text-muted">
+      Educational material only. Not financial, investment, medical or physiotherapy advice.
+      Trading carries a substantial risk of loss; training can injure you. Test every idea on made-up
+      money and your own log before you trust it. &copy; {{ now.Year }} The Working-Class Trade Collective.
+    </p>
+  </div>
+</footer>

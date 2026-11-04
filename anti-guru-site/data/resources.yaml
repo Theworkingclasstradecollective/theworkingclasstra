@@ -1,0 +1,62 @@
+# One entry per downloadable file. `path` is relative to /static.
+# `book` must match the `number` in the book's front matter.
+- book: "001"
+  name: "Trade journal template (Appendix D)"
+  path: /downloads/001-trading/trade-journal-template.csv
+  type: CSV
+  desc: "One row per trade: the three screens, four gates, order, result and six-question audit."
+- book: "001"
+  name: "50-trade log (Appendix E)"
+  path: /downloads/001-trading/trade-log-50.csv
+  type: CSV
+  desc: "Blank 50-row log. Feed it to trade_stats.py after 50 trades."
+- book: "001"
+  name: "Drawdown table (Appendix B)"
+  path: /downloads/001-trading/drawdown-table.csv
+  type: CSV
+  desc: "Drawdown, what is left of $1,000, the gain needed to get even, and the action to take."
+- book: "001"
+  name: "trade_stats.py"
+  path: /downloads/001-trading/trade_stats.py
+  type: PY
+  desc: "Win rate, average win and loss, expectancy, worst losing streak, compliance, and expectancy without your best trade."
+- book: "001"
+  name: "risk_calc.py"
+  path: /downloads/001-trading/risk_calc.py
+  type: PY
+  desc: "Command-line cheat sheet: position size, break-even win rate, drawdown recovery, yearly trading costs."
+- book: "001"
+  name: "Printable appendices A-E"
+  path: /downloads/001-trading/trading-printables.pdf
+  type: PDF
+  desc: "Cheat sheet, drawdown table, five chart words, trade journal and 50-trade log, ready to print (6 × 9 in)."
+- book: "002"
+  name: "50-workout log (Appendix E)"
+  path: /downloads/002-fitness/workout-log-50.csv
+  type: CSV
+  desc: "Blank 50-session log: sleep, pain, planned vs done volume, the five gates and your audit."
+- book: "002"
+  name: "Leverage ladders (Appendix A)"
+  path: /downloads/002-fitness/leverage-ladders.csv
+  type: CSV
+  desc: "Five patterns, five rungs each, with the planning multiplier L for every move."
+- book: "002"
+  name: "Joint longevity protocol (Appendix B)"
+  path: /downloads/002-fitness/joint-longevity-protocol.csv
+  type: CSV
+  desc: "Joint-by-joint daily prep, twice-a-week builders, and when to get checked."
+- book: "002"
+  name: "Sample session"
+  path: /downloads/002-fitness/sample-session.csv
+  type: CSV
+  desc: "The chapter 3 worked example. Copy it, put in your own moves, run workout_volume.py."
+- book: "002"
+  name: "workout_volume.py"
+  path: /downloads/002-fitness/workout_volume.py
+  type: PY
+  desc: "Session volume (V), spike ratio with green/amber/red call, highest safe week and deload target."
+- book: "002"
+  name: "Printable appendices A-E"
+  path: /downloads/002-fitness/fitness-printables.pdf
+  type: PDF
+  desc: "Cheat sheet and ladders, joint protocol, movement words, workout journal and 50-workout log."

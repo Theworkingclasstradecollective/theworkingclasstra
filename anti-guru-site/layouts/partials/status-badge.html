@@ -1,0 +1,8 @@
+{{- /* Usage: partial "status-badge.html" .  (a manual page) */ -}}
+{{- if eq .Params.status "published" -}}
+  <span class="tag">Published</span>
+{{- else if eq .Params.status "upcoming" -}}
+  <span class="tag tag-brand">Releasing {{ with .Params.release_date }}{{ . | time.AsTime | time.Format "2 Jan 2006" }}{{ else }}soon{{ end }}</span>
+{{- else -}}
+  <span class="tag tag-outline">{{ .Params.status | default "draft" }}</span>
+{{- end -}}

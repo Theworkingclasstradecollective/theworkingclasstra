@@ -1,0 +1,22 @@
+{{- /* Catalog card. Usage: partial "book-card.html" $bookPage */ -}}
+<article class="panel group relative flex gap-5 p-4 shadow-hard transition-transform hover:-translate-y-0.5 sm:p-5">
+  <a href="{{ .RelPermalink }}" class="block w-32 shrink-0 self-start border-2 border-ink sm:w-40" tabindex="-1" aria-hidden="true">
+    <img src="{{ partial "u.html" .Params.cover }}" width="800" height="1193" loading="lazy" decoding="async"
+         alt="" class="block h-auto w-full">
+  </a>
+  <div class="flex min-w-0 flex-col">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="tag tag-outline">#{{ .Params.number }}</span>
+      {{ partial "status-badge.html" . }}
+    </div>
+    <h3 class="mt-3 text-2xl sm:text-3xl">
+      <a href="{{ .RelPermalink }}" class="no-underline after:absolute after:inset-0 hover:text-accent">{{ .Title }}</a>
+    </h3>
+    <p class="mt-2 font-mono text-xs uppercase leading-snug tracking-wider text-muted">{{ .Params.subtitle }}</p>
+    <p class="mt-3 text-sm leading-relaxed">{{ .Params.tagline }}</p>
+    {{ with .Params.badge }}<p class="mt-3 font-mono text-xs font-bold uppercase tracking-wider text-accent">&#9733; {{ . }}</p>{{ end }}
+    <p class="mt-auto pt-4 font-mono text-sm font-bold uppercase tracking-widest">
+      {{ if eq .Params.status "published" }}Read the details{{ else }}Preview{{ end }} <span aria-hidden="true">&rarr;</span>
+    </p>
+  </div>
+</article>

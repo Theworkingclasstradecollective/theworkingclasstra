@@ -1,0 +1,18 @@
+<section id="newsletter" aria-labelledby="nl-title" class="panel p-6 sm:p-8 shadow-hard">
+  <p class="tag tag-brand">Release alerts</p>
+  <h2 id="nl-title" class="mt-4 text-3xl sm:text-4xl">One email when a manual drops.</h2>
+  <p class="mt-3 max-w-prose text-muted">
+    Weekly release alerts for new field manuals. No funnel, no upsell, no "limited-time" anything.
+    Unsubscribe whenever you like.
+  </p>
+  <form action="{{ site.Params.newsletterAction }}" method="post" class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-end">
+    <div class="flex-1">
+      <label for="nl-email" class="block font-mono text-xs font-bold uppercase tracking-[0.18em]">Email</label>
+      <input id="nl-email" name="{{ site.Params.newsletterField | default "email" }}" type="email" required
+             autocomplete="email" inputmode="email" placeholder="you@example.com"
+             class="mt-2 w-full border-2 border-ink bg-bg px-4 py-3 font-mono text-base placeholder:text-muted">
+    </div>
+    <button type="submit" class="btn btn-primary">Subscribe &rarr;</button>
+  </form>
+  <p class="mt-3 font-mono text-xs text-muted">&gt; We only ask for an email address.</p>
+</section>

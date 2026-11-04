@@ -1,0 +1,22 @@
+{{- /* schema.org/Book JSON-LD: helps search engines, sets no cookies, runs no code. */ -}}
+{{- $author := or .Params.author site.Params.author -}}
+{{- $s := dict
+    "@context" "https://schema.org"
+    "@type" "Book"
+    "name" .Title
+    "alternativeHeadline" .Params.subtitle
+    "description" .Params.tagline
+    "url" .Permalink
+    "image" (partial "au.html" .Params.cover)
+    "inLanguage" "en"
+    "bookFormat" "https://schema.org/Paperback"
+    "license" site.Params.licenseURL
+    "author" (dict "@type" "Organization" "name" $author)
+    "publisher" (dict "@type" "Organization" "name" site.Params.author)
+    "isPartOf" (dict "@type" "BookSeries" "name" site.Title)
+    "position" .Params.volume
+-}}
+{{- with .Params.pages }}{{ $s = merge $s (dict "numberOfPages" .) }}{{ end -}}
+{{- with .Params.isbn }}{{ $s = merge $s (dict "isbn" .) }}{{ end -}}
+{{- if and .Params.amazon (ne .Params.amazon "#") }}{{ $s = merge $s (dict "sameAs" .Params.amazon) }}{{ end -}}
+<script type="application/ld+json">{{ $s | jsonify | safeJS }}</script>

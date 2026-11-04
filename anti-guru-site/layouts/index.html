@@ -1,0 +1,69 @@
+{{ define "main" }}
+
+{{/* ============ HERO / MANIFESTO BANNER ============ */}}
+<section class="border-b-4 border-ink" aria-labelledby="hero-title">
+  <div class="mx-auto grid max-w-6xl gap-12 px-4 py-14 md:py-24 lg:grid-cols-[minmax(0,1fr)_20rem]">
+    <div class="min-w-0">
+      <p class="tag tag-brand">{{ .Params.hero_kicker | default "The Anti-Guru Field Manuals" }}</p>
+      <h1 id="hero-title" class="mt-6 text-[clamp(1.75rem,6.4vw,4.4rem)] [overflow-wrap:anywhere]">
+        {{ .Params.hero_title | default site.Params.tagline }}
+      </h1>
+      <div class="mt-8 max-w-2xl space-y-4 text-lg leading-relaxed">
+        {{ .Content }}
+      </div>
+      <div class="mt-9 flex flex-wrap gap-4">
+        <a class="btn btn-primary" href="#manuals">See the manuals <span aria-hidden="true">&darr;</span></a>
+        <a class="btn btn-ghost" href="{{ "manifesto/" | relURL }}">Read the manifesto</a>
+      </div>
+    </div>
+
+    <aside class="min-w-0" aria-label="The five workbench rules">
+      <div class="panel shadow-hard">
+        <p class="border-b-2 border-ink bg-ink px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-bg">workbench-rules.txt</p>
+        <div class="p-5 font-mono text-sm leading-relaxed">
+          <p class="text-muted">$ cat workbench-rules.txt</p>
+          <ol class="mt-4 space-y-3">
+            <li><span class="font-bold text-accent">01</span> No gods, no masters.</li>
+            <li><span class="font-bold text-accent">02</span> The machine does not love you.</li>
+            <li><span class="font-bold text-accent">03</span> Share the math.</li>
+            <li><span class="font-bold text-accent">04</span> Survive first.</li>
+            <li><span class="font-bold text-accent">05</span> Be honest about the odds.</li>
+          </ol>
+          <p class="mt-4 text-muted">$ <span class="inline-block h-4 w-2 translate-y-0.5 bg-brand" aria-hidden="true"></span></p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  {{/* spec strip */}}
+  <dl class="mx-auto grid max-w-6xl grid-cols-2 border-t-2 border-ink font-mono text-xs uppercase tracking-widest sm:grid-cols-4">
+    <div class="border-b-2 border-r-2 border-line p-4 sm:border-b-0"><dt class="text-muted">Volumes planned</dt><dd class="mt-1 text-2xl font-bold">100</dd></div>
+    <div class="border-b-2 border-line p-4 sm:border-b-0 sm:border-r-2"><dt class="text-muted">Written so far</dt><dd class="mt-1 text-2xl font-bold">2</dd></div>
+    <div class="border-r-2 border-line p-4"><dt class="text-muted">Licence</dt><dd class="mt-1 text-2xl font-bold">CC BY-SA</dd></div>
+    <div class="p-4"><dt class="text-muted">Trackers</dt><dd class="mt-1 text-2xl font-bold">0</dd></div>
+  </dl>
+</section>
+
+{{/* ============ BOOK GRID ============ */}}
+<section id="manuals" class="mx-auto max-w-6xl scroll-mt-6 px-4 pt-16" aria-labelledby="manuals-title">
+  <div class="flex flex-wrap items-end justify-between gap-4 border-b-4 border-ink pb-4">
+    <h2 id="manuals-title" class="text-4xl sm:text-5xl">The manuals</h2>
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted">Only finished books are listed. No placeholders.</p>
+  </div>
+  <div class="mt-10 grid gap-10 lg:grid-cols-2">
+    {{ range (where site.RegularPages "Section" "manuals").ByWeight }}
+      {{ partial "book-card.html" . }}
+    {{ end }}
+  </div>
+  <p class="mt-8 font-mono text-sm text-muted">
+    <a class="text-accent underline" href="{{ "manuals/" | relURL }}">Full catalog</a> &middot;
+    <a class="text-accent underline" href="{{ "resources/" | relURL }}">Free templates &amp; scripts</a>
+  </p>
+</section>
+
+{{/* ============ NEWSLETTER ============ */}}
+<section class="mx-auto max-w-6xl px-4 pt-20">
+  {{ partial "newsletter.html" . }}
+</section>
+
+{{ end }}

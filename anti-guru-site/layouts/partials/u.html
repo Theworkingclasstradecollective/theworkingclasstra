@@ -1,0 +1,2 @@
+{{- /* Site-relative URL that respects a subfolder baseURL. Accepts "/path" or "path". */ -}}
+{{- return (strings.TrimPrefix "/" . | relURL) -}}

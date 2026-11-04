@@ -1,0 +1,26 @@
+pattern,rung,move,L
+Push,1,Wall push-up,0.30
+Push,2,Counter push-up (waist-high hands),0.45
+Push,3,Bench push-up (knee-high hands),0.55
+Push,4,Floor push-up,0.65
+Push,5,Feet-elevated push-up,0.75
+Pull,1,Steep inverted row (body near upright),0.35
+Pull,2,"Inverted row, knees bent",0.50
+Pull,3,"Inverted row, body straight",0.65
+Pull,4,Band-assisted pull-up,0.80
+Pull,5,Pull-up,1.00
+Hinge,1,Glute bridge,0.30
+Hinge,2,"Hip hinge, hands on hips",0.40
+Hinge,3,Single-leg bridge,0.50
+Hinge,4,Single-leg Romanian deadlift (bodyweight),0.70
+Hinge,5,"Nordic curl, lowering only (assisted)",0.90
+Squat,1,"Box squat, high box",0.40
+Squat,2,Bodyweight squat,0.60
+Squat,3,Split squat,0.70
+Squat,4,Rear-foot-elevated split squat,0.85
+Squat,5,Pistol squat to a box,1.00
+Core,1,Dead bug,0.30
+Core,2,Bird dog,0.40
+Core,3,Front plank,0.50
+Core,4,Side plank,0.60
+Core,5,Hanging knee raise,0.80

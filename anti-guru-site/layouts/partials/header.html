@@ -1,0 +1,26 @@
+<div class="bg-brand text-white font-mono text-[11px] sm:text-xs uppercase tracking-[0.22em] text-center py-1.5 px-3">
+  No gods. No masters. No signal rooms.
+</div>
+<header class="border-b-4 border-ink">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-8 gap-y-3 px-4 py-4">
+    <a href="{{ partial "u.html" "" }}" class="flex items-center gap-3 no-underline">
+      <img src="{{ partial "u.html" site.Params.logo }}" width="48" height="48" alt="" class="size-12 rounded-full">
+      <span class="font-display text-lg uppercase leading-none">
+        Anti-Guru
+        <span class="mt-1 block font-mono text-[11px] font-normal tracking-[0.28em] text-muted">Field Manuals</span>
+      </span>
+    </a>
+    {{ $page := . }}
+    <nav aria-label="Main">
+      <ul class="flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm uppercase tracking-widest">
+        {{ range site.Menus.main }}
+        <li>
+          <a href="{{ .URL }}"
+             class="py-1 no-underline hover:text-accent {{ if or ($page.IsMenuCurrent "main" .) ($page.HasMenuCurrent "main" .) }}underline decoration-brand decoration-4 underline-offset-8{{ end }}"
+             {{ if or ($page.IsMenuCurrent "main" .) ($page.HasMenuCurrent "main" .) }}aria-current="page"{{ end }}>{{ .Name }}</a>
+        </li>
+        {{ end }}
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,130 @@
+{{ define "main" }}
+{{ $book := . }}
+<article class="mx-auto max-w-6xl px-4 py-10 md:py-16">
+
+  <nav aria-label="Breadcrumb" class="mb-8 font-mono text-xs uppercase tracking-[0.2em] text-muted">
+    <a href="{{ "manuals/" | relURL }}" class="hover:text-accent">Manuals</a>
+    <span aria-hidden="true">/</span>
+    <span class="text-ink">#{{ .Params.number }}</span>
+  </nav>
+
+  <div class="grid gap-10 md:grid-cols-12 md:gap-12">
+
+    {{/* ---------- LEFT: cover ---------- */}}
+    <div class="md:col-span-5 lg:col-span-4">
+      <div class="mx-auto max-w-xs md:sticky md:top-6 md:max-w-none">
+        <div class="border-2 border-ink bg-panel shadow-hard">
+          <img src="{{ partial "u.html" .Params.cover }}" width="800" height="1193" fetchpriority="high" decoding="async"
+               alt="Cover of {{ .Title }}: {{ .Params.subtitle }}. Black distressed cover with a red spray-paint slash." class="block h-auto w-full">
+        </div>
+        {{ with .Params.badge }}
+        <p class="mt-6 border-2 border-brand px-3 py-2 text-center font-mono text-xs font-bold uppercase tracking-[0.18em] text-accent">&#9733; {{ . }}</p>
+        {{ end }}
+      </div>
+    </div>
+
+    {{/* ---------- RIGHT: details ---------- */}}
+    <div class="md:col-span-7 lg:col-span-8">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="tag tag-outline">Field Manual #{{ .Params.number }}</span>
+        {{ partial "status-badge.html" . }}
+      </div>
+
+      <h1 class="mt-5 text-[clamp(2.2rem,6vw,4.2rem)]">{{ .Title }}</h1>
+      <p class="mt-4 border-l-8 border-brand pl-4 text-xl font-semibold leading-snug">{{ .Params.subtitle }}</p>
+      <p class="mt-4 max-w-prose text-lg italic text-muted">{{ .Params.tagline }}</p>
+
+      {{/* buy */}}
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        {{ partial "buy-button.html" . }}
+        <a class="btn btn-ghost" href="{{ "resources/" | relURL }}#book-{{ .Params.number }}">Free resources</a>
+      </div>
+      {{ with .Params.disclaimer }}<p class="mt-4 max-w-prose font-mono text-xs leading-relaxed text-muted">&gt; {{ . }}</p>{{ end }}
+
+      {{/* metadata */}}
+      <section class="mt-12" aria-labelledby="meta-title">
+        <h2 id="meta-title" class="border-b-4 border-ink pb-2 text-2xl">Specs</h2>
+        <dl class="mt-2 grid grid-cols-[7.5rem_1fr] font-mono text-sm sm:grid-cols-[9rem_1fr]">
+          {{ $rows := slice
+              (dict "k" "Series" "v" (printf "%s, vol. %s of 100" site.Title .Params.number))
+              (dict "k" "Author" "v" .Params.author)
+              (dict "k" "Publisher" "v" site.Params.author)
+              (dict "k" "Format" "v" .Params.format)
+              (dict "k" "Pages" "v" (cond (isset .Params "pages") (printf "%v" .Params.pages) ""))
+              (dict "k" "Language" "v" "English")
+              (dict "k" "ASIN" "v" .Params.asin)
+              (dict "k" "ISBN" "v" .Params.isbn) -}}
+          {{ range $rows }}{{ if .v }}
+            <dt class="border-b border-line py-2.5 uppercase tracking-widest text-muted">{{ .k }}</dt>
+            <dd class="border-b border-line py-2.5">{{ .v }}</dd>
+          {{ end }}{{ end }}
+          <dt class="border-b border-line py-2.5 uppercase tracking-widest text-muted">Release</dt>
+          <dd class="border-b border-line py-2.5">
+            {{ if eq .Params.status "published" }}Published{{ else }}{{ with .Params.release_date }}{{ . | time.AsTime | time.Format "2 January 2006" }}{{ end }}{{ end }}
+          </dd>
+          <dt class="border-b border-line py-2.5 uppercase tracking-widest text-muted">Licence</dt>
+          <dd class="border-b border-line py-2.5"><a class="text-accent underline" href="{{ site.Params.licenseURL }}" rel="license noopener">{{ site.Params.license }}</a> (copy it, share it)</dd>
+        </dl>
+      </section>
+
+      {{/* description (markdown body) */}}
+      <section class="mt-12" aria-labelledby="about-title">
+        <h2 id="about-title" class="border-b-4 border-ink pb-2 text-2xl">What this manual does</h2>
+        <div class="prose-plain mt-5">{{ .Content }}</div>
+      </section>
+
+      {{/* table of contents */}}
+      {{ with .Params.toc }}
+      <section class="mt-12" aria-labelledby="toc-title">
+        <h2 id="toc-title" class="border-b-4 border-ink pb-2 text-2xl">Table of contents</h2>
+        <ol class="mt-2">
+          {{ range . }}
+          <li class="border-b border-line py-3">
+            <div class="flex items-baseline gap-4">
+              <span class="w-24 shrink-0 font-mono text-[11px] font-bold uppercase tracking-widest text-accent sm:w-28">{{ .label }}</span>
+              <span class="flex-1 font-semibold leading-snug">{{ .title }}</span>
+              {{ with .page }}<span class="font-mono text-sm text-muted">p.{{ . }}</span>{{ end }}
+            </div>
+            {{ with .sections }}
+            <ul class="mt-2 space-y-1 pl-[6.5rem] text-sm text-muted sm:pl-[8rem]">
+              {{ range . }}<li class="before:mr-2 before:text-accent before:content-['>']">{{ . }}</li>{{ end }}
+            </ul>
+            {{ end }}
+          </li>
+          {{ end }}
+        </ol>
+      </section>
+      {{ end }}
+
+      {{/* downloadable resources for this book */}}
+      {{ $res := where site.Data.resources "book" .Params.number }}
+      {{ with $res }}
+      <section class="mt-12" aria-labelledby="res-title">
+        <h2 id="res-title" class="border-b-4 border-ink pb-2 text-2xl">Free downloads</h2>
+        <ul class="mt-4 grid gap-3 sm:grid-cols-2">
+          {{ range . }}
+          <li>
+            <a href="{{ partial "u.html" .path }}" download class="panel flex items-center justify-between gap-3 px-4 py-3 no-underline hover:border-brand">
+              <span class="min-w-0 text-sm font-semibold leading-snug">{{ .name }}</span>
+              <span class="tag shrink-0">{{ .type }}</span>
+            </a>
+          </li>
+          {{ end }}
+        </ul>
+        <p class="mt-4 font-mono text-sm"><a class="text-accent underline" href="{{ "resources/" | relURL }}#book-{{ $book.Params.number }}">All resources for #{{ $book.Params.number }} &rarr;</a></p>
+      </section>
+      {{ end }}
+
+      {{/* next field operation */}}
+      {{ $other := where (where site.RegularPages "Section" "manuals") "File.UniqueID" "ne" .File.UniqueID }}
+      {{ with index $other 0 }}
+      <aside class="panel mt-14 p-5 shadow-hard-sm" aria-label="Next field operation">
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted">Next field operation</p>
+        <p class="mt-2 font-display text-2xl uppercase leading-none"><a class="no-underline hover:text-accent" href="{{ .RelPermalink }}">{{ .Title }} <span aria-hidden="true">&rarr;</span></a></p>
+        <p class="mt-2 text-sm text-muted">Same ethos, different battlefield.</p>
+      </aside>
+      {{ end }}
+    </div>
+  </div>
+</article>
+{{ end }}
