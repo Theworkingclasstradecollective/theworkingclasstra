@@ -51,7 +51,7 @@ disableKinds = ["taxonomy", "term"]
   # Point this at any provider that offers a hosted form endpoint
   # (Buttondown, Mailchimp, Kit, a self-hosted listmonk...). Turn OFF
   # open/click tracking in the provider so the "zero tracking" claim stays true.
-  newsletterAction = "https://buttondown.com/api/emails/embed-subscribe/CHANGE-ME"
+  newsletterAction = "https://buttondown.com/api/emails/embed-subscribe/theworkingclasstradecollective"
   newsletterField = "email"
 
   # --- Public data repo (shown on /resources/ once you replace CHANGE-ME) ---
