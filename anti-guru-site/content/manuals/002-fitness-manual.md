@@ -6,14 +6,13 @@ description: "Field Manual #002: bodyweight calisthenics, workload math and join
 number: "002"
 volume: 2
 weight: 2
-status: "upcoming"
-release_date: 2026-11-10
+status: "published"
 author: "The Working-Class Trade Collective"
-format: "Paperback, 6 × 9 in"
+format: "E-book"
 pages: 80
 asin: ""
 isbn: ""
-amazon: "#"   # placeholder: replace with the Amazon link on launch day
+amazon: "https://www.amazon.com/dp/B0HQP5Z9DC"   # placeholder: replace with the Amazon link on launch day
 cover: "/assets/covers/cover-002.jpg"
 disclaimer: "General education, not medical advice. If you have a heart or lung condition, chest pain, or an uncleared joint or spine problem, see a doctor or physiotherapist before you start."
 toc:
